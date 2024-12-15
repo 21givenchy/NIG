@@ -1,34 +1,36 @@
-import GovernmentPerformance from './GovernmentPerformance'
-import CitizenSatisfaction from './CitizenSatisfaction'
-import PolicyProgress from './PolicyProgress'
-import BudgetUtilization from './BudgetUtilization'
-import CommunityEngagement from './CommunityEngagement'
-import TopConcerns from './TopConcerns'
-import ResponseTime from './ResponseTime'
-import TransparencyScore from './TransparencyScore'
-import EnvironmentalImpact from './EnvironmentalImpact'
-import EconomicHealth from './EconomicHealth'
-import VotingSystem from './VotingSystem'
+"use client"
+
+import { useState } from 'react'
+import DepartmentSelector from './DepartmentSelector'
+import DepartmentMetrics from './DepartmentMetrics'
+
+export type Department = {
+  id: string
+  name: string
+}
+
+const departments: Department[] = [
+  { id: 'education', name: 'Education' },
+  { id: 'health', name: 'Health' },
+  { id: 'transport', name: 'Transport' },
+  { id: 'environment', name: 'Environment' },
+  { id: 'finance', name: 'Finance' },
+]
 
 export default function Dashboard() {
+  const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null)
+
   return (
     <div className="max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold mb-8 text-center">D.O.G.E Citizen Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <GovernmentPerformance />
-        <CitizenSatisfaction />
-        <PolicyProgress />
-        <BudgetUtilization />
-        <CommunityEngagement />
-        <TopConcerns />
-        <ResponseTime />
-        <TransparencyScore />
-        <EnvironmentalImpact />
-        <EconomicHealth />
-        <div className="md:col-span-2 lg:col-span-3">
-          <VotingSystem />
-        </div>
-      </div>
+      <DepartmentSelector 
+        departments={departments} 
+        selectedDepartment={selectedDepartment}
+        onSelectDepartment={setSelectedDepartment}
+      />
+      {selectedDepartment && (
+        <DepartmentMetrics department={selectedDepartment} />
+      )}
     </div>
   )
 }
