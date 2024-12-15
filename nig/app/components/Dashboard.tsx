@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import DepartmentSelector from './DepartmentSelector'
 import DepartmentMetrics from './DepartmentMetrics'
+import DepartmentHealth from './DepartmentHealth'
 
 export type Department = {
   id: string
@@ -31,6 +32,7 @@ export default function Dashboard() {
       {selectedDepartment && (
         <DepartmentMetrics department={selectedDepartment} />
       )}
+      <DepartmentHealth />
     </div>
   )
 }
